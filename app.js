@@ -8,6 +8,8 @@ var http = require('http');
 var path = require('path');
 var handlebars = require('express3-handlebars')
 
+var palette = require('./routes/palette'); // Palette route
+
 var index = require('./routes/index');
 var project = require('./routes/project');
 // Example route
@@ -22,7 +24,7 @@ app.engine('handlebars', handlebars());
 app.set('view engine', 'handlebars');
 app.use(express.favicon());
 app.use(express.logger('dev'));
-app.use(express.json());
+app.use(express.json())
 app.use(express.urlencoded());
 app.use(express.methodOverride());
 app.use(express.cookieParser('Intro HCI secret key'));
@@ -38,6 +40,9 @@ if ('development' == app.get('env')) {
 // Add routes here
 app.get('/', index.view);
 app.get('/project/:id', project.projectInfo);
+
+app.get( '/palette', palette.randomPalette ); // To get palette
+
 // Example route
 // app.get('/users', user.list);
 
